@@ -22,7 +22,7 @@ A secure and scalable RESTful backend application for managing workouts and exer
  ### Workout Reports
   - Generate reports of completed workouts
   - View workout history
-##Tech Stack
+## Tech Stack
 - Backend: Spring Boot, Spring Security
 - Database: MySQL
 - Authentication: JWT (JSON Web Token)
@@ -43,7 +43,7 @@ A secure and scalable RESTful backend application for managing workouts and exer
 ### Workout
 -  `/api/workout` → Manage workout
 
-##Authentication
+## Authentication
 
 - All workout APIs require JWT token in header:
 - Authorization: Bearer <token>
