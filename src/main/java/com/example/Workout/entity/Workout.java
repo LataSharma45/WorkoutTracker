@@ -28,11 +28,6 @@ public class Workout {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-//    @OneToMany(cascade = CascadeType.ALL,
-//    mappedBy = "workout", orphanRemoval = true)
-//    @JoinColumn(name = "workout_id")
-
     private LocalDateTime scheduledDateTime;
     private boolean isCompleted;
     @OneToMany(cascade = CascadeType.ALL,

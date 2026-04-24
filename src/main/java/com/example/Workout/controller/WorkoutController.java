@@ -1,7 +1,6 @@
 package com.example.Workout.controller;
 
 import com.example.Workout.dto.WorkoutDTO;
-import com.example.Workout.entity.Workout;
 import com.example.Workout.service.WorkoutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

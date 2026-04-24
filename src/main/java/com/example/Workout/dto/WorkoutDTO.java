@@ -1,6 +1,5 @@
 package com.example.Workout.dto;
 
-import com.example.Workout.entity.Exercise;
 import lombok.Data;
 
 import java.time.LocalDateTime;

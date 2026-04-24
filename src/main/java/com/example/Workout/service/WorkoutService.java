@@ -197,7 +197,6 @@ public class WorkoutService {
         workout.setCompleted(dto.isCompleted());
 
         if (dto.getExercises() != null) {
-            // Clear existing exercises
             workout.getExercises().clear();
 
             // Add new exercises
@@ -206,7 +205,6 @@ public class WorkoutService {
                     .collect(Collectors.toList());
             workout.getExercises().addAll(exercises);
 
-            // Set the workout reference for each exercise
             exercises.forEach(exercise -> exercise.setWorkout(workout));
         }}
 }
