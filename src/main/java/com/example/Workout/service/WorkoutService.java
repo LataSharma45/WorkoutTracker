@@ -27,7 +27,7 @@ public class WorkoutService {
     @Transactional
     public WorkoutDTO createWorkout(WorkoutDTO dto) {
 
-        // 1️⃣ Get logged-in user
+
         String username = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
@@ -36,30 +36,17 @@ public class WorkoutService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // 2️⃣ Convert DTO → Entity
         Workout workout = mapToEntity(dto);
 
-        // 3️⃣ Attach user
         workout.setUser(user);
 
-        // 4️⃣ Attach workout to exercises (🔥 VERY IMPORTANT)
         if (workout.getExercises() != null) {
             workout.getExercises().forEach(e -> e.setWorkout(workout));
         }
-
-        // 5️⃣ Save
         Workout saved = workoutRepository.save(workout);
 
         return mapToDTO(saved);
     }
-
-
-//    public WorkoutDTO createWorkout(WorkoutDTO workoutDTO) {
-//        User user = getCurrentUser();
-//        Workout workout = mapToEntity(workoutDTO);
-//        workout.setUser(user);
-//        return mapToDTO(workoutRepository.save(workout));
-//    }
 
     public WorkoutDTO updateWorkout(Long id, WorkoutDTO workoutDTO) {
         Workout workout = workoutRepository.findById(id)
@@ -67,9 +54,18 @@ public class WorkoutService {
         updateWorkoutFromDTO(workout, workoutDTO);
         return mapToDTO(workoutRepository.save(workout));
     }
-
     public void deleteWorkout(Long id) {
-        workoutRepository.deleteById(id);
+        User user = getCurrentUser();
+
+        Workout workout = workoutRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Workout not found"));
+
+
+        if (!workout.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Unauthorized");
+        }
+
+        workoutRepository.delete(workout);
     }
 
     public List<WorkoutDTO> listWorkouts() {

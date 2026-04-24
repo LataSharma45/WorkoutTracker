@@ -21,11 +21,6 @@ public class WebSecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
-
-                // 🔥 VERY IMPORTANT
-               // .formLogin(form -> form.disable())
-                //.httpBasic(basic -> basic.disable())
-
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
@@ -35,11 +30,6 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
 
-//                .exceptionHandling(ex -> ex
-//                        .authenticationEntryPoint((request, response, authException) -> {
-//                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//                        })
-//                )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
